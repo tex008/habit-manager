@@ -19,7 +19,6 @@ export default function Home() {
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
   const today = (new Date()).getDay();
   const sortedWeekDays = weekDays.slice(today).concat(weekDays.slice(0, today))
-  console.log('teste', sortedWeekDays)
 
   return (
     <main className="container relative flex flex-col gap-8 px-4 pt-16">
