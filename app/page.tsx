@@ -1,20 +1,10 @@
 import DayState from "@/components/DayState";
+import { kv } from "@vercel/kv";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
-  const habits = {
-    "drink water": {
-      "2023-07-18": true,
-      "2023-07-17": false,
-      "2023-07-16": true,
-    },
-    "programming studies": {
-      "2023-07-18": false,
-      "2023-07-17": true,
-      "2023-07-16": true,
-    }
-  };
+export default async function Home() {
+  const habits = await kv.hgetall("habits")
 
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
   const today = (new Date()).getDay();
@@ -47,7 +37,7 @@ export default function Home() {
                   <span  className="font-sans text-xs text-white text-center">
                     {day}
                   </span>
-                  <DayState day={true}/>
+                  <DayState day={undefined}/>
                 </div>
                ))}
             </section>

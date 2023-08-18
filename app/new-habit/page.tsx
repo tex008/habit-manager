@@ -1,13 +1,17 @@
+import { kv } from "@vercel/kv";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
 export default function NewHabitPage() {
   async function newHabit(formData: FormData) {
     "use server";
 
     const habit = formData.get("habit");
+    await kv.hset("habits", {[habit as string]: {}})
 
-    console.log("habit", habit)
+    revalidatePath('/')
+    redirect('/')
   }
-
-
 
   return (
     <main className="container relative flex flex-col gap-8 px-12 pt-16">
