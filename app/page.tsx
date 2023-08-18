@@ -3,12 +3,22 @@ import { kv } from "@vercel/kv";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Home() {
-  const habits = await kv.hgetall("habits")
+type Habits = {
+  [habit: string] : Record<string,boolean> ;
+} | null
 
-  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+export default async function Home() {
+  const habits: Habits = await kv.hgetall("habits")
+
   const today = (new Date()).getDay();
-  const sortedWeekDays = weekDays.slice(today).concat(weekDays.slice(0, today))
+  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  const sortedWeekDays = weekDays.slice(today + 1).concat(weekDays.slice(0, today + 1))
+  const lastSevenDays = weekDays.map((_, index) => {
+    const date = new Date();
+    date.setDate((date.getDate() - 1) - index)
+
+    return date.toISOString().slice(0, 10)
+  }).reverse()
 
   return (
     <main className="container relative flex flex-col gap-8 px-4 pt-16">
@@ -18,7 +28,7 @@ export default async function Home() {
         </h1>
       )}
       {
-        habits !== null && Object.entries(habits).map(([habit,_habitStreak]) => (
+        habits !== null && Object.entries(habits).map(([habit,habitStreak]) => (
           <div key={habit} className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
               <span className="text-xl font-light text-white font-sans">{habit}</span>
@@ -32,12 +42,12 @@ export default async function Home() {
               </button>
             </div>
             <section className="grid grid-cols-7 bg-neutral-800 rounded-md p-2">
-               {sortedWeekDays.map((day) => (
-                <div key={day} className="flex flex-col first:font-bold">
+               {sortedWeekDays.map((day, index) => (
+                <div key={day} className="flex flex-col last:font-bold">
                   <span  className="font-sans text-xs text-white text-center">
                     {day}
                   </span>
-                  <DayState day={undefined}/>
+                  <DayState day={habitStreak[lastSevenDays[index]]}/>
                 </div>
                ))}
             </section>
