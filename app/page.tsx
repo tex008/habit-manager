@@ -41,16 +41,18 @@ export default async function Home() {
                 />
               </button>
             </div>
-            <section className="grid grid-cols-7 bg-neutral-800 rounded-md p-2">
-               {sortedWeekDays.map((day, index) => (
-                <div key={day} className="flex flex-col last:font-bold">
-                  <span  className="font-sans text-xs text-white text-center">
-                    {day}
-                  </span>
-                  <DayState day={habitStreak[lastSevenDays[index]]}/>
-                </div>
-               ))}
-            </section>
+            <Link href={`habit/${habit}`}>
+              <section className="grid grid-cols-7 bg-neutral-800 rounded-md p-2">
+                {sortedWeekDays.map((day, index) => (
+                  <div key={day} className="flex flex-col last:font-bold">
+                    <span  className="font-sans text-xs text-white text-center">
+                      {day}
+                    </span>
+                    <DayState day={habitStreak[lastSevenDays[index]]}/>
+                  </div>
+                ))}
+              </section>
+            </Link>
           </div>
         ))
       }
