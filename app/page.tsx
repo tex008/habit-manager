@@ -7,13 +7,14 @@ type Habits = {
   [habit: string] : Record<string,boolean> ;
 } | null
 
+export const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
 export default async function Home() {
   const habits: Habits = await kv.hgetall("habits")
 
   const today = (new Date()).getDay();
-  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-  const sortedWeekDays = weekDays.slice(today + 1).concat(weekDays.slice(0, today + 1))
-  const lastSevenDays = weekDays.map((_, index) => {
+  const sortedWeekDays = WEEKDAYS.slice(today + 1).concat(WEEKDAYS.slice(0, today + 1))
+  const lastSevenDays = WEEKDAYS.map((_, index) => {
     const date = new Date();
     date.setDate((date.getDate() - 1) - index)
 
