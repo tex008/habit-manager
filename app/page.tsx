@@ -1,9 +1,7 @@
 import DayState from "@/components/DayState";
 import DeleteButton from "@/components/DeleteButton";
 import { kv } from "@vercel/kv";
-import Image from "next/image";
 import Link from "next/link";
-import { deleteHabit } from "./actions";
 
 type Habits = {
   [habit: string] : Record<string,boolean> ;
