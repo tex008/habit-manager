@@ -34,7 +34,7 @@ export default async function Home() {
         habits !== null && Object.entries(habits).map(([habit,habitStreak]) => (
           <div key={habit} className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
-              <span className="text-xl font-light text-white font-sans">{habit}</span>
+              <span className="text-xl font-light text-white font-sans">{habit.charAt(0).toUpperCase() + habit.slice(1)}</span>
               <DeleteButton habit={habit}/>
             </div>
             <Link href={`habit/${habit}`}>
