@@ -1,7 +1,7 @@
 'use client'
 import { toggleHabit } from "@/app/actions";
-import { WEEKDAYS } from "@/app/page";
 import ArrowIcon from "@/components/ArrowIcon";
+import { WEEKDAYS } from "@/utils/utils";
 import { useEffect, useState } from "react";
 import DayState from "./DayState";
 

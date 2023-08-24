@@ -1,13 +1,12 @@
 import DayState from "@/components/DayState";
 import DeleteButton from "@/components/DeleteButton";
+import { WEEKDAYS } from "@/utils/utils";
 import { kv } from "@vercel/kv";
 import Link from "next/link";
 
 type Habits = {
   [habit: string] : Record<string,boolean> ;
 } | null
-
-export const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
 export default async function Home() {
   const habits: Habits = await kv.hgetall("habits")
