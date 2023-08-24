@@ -10,7 +10,7 @@ type HabitPageProps = {
 
 export default async function HabitPage({ params: { habit } }: { params: HabitPageProps }) {
   const formattedHabit = decodeURI(habit)
-  const habitStreak = await kv.hget("habits", formattedHabit)
+  const habitStreak: Record<string, boolean> | null = await kv.hget("habits", formattedHabit)
 
   return (
     <main className="container relative flex flex-col gap-8 px-12 pt-16">
@@ -21,7 +21,7 @@ export default async function HabitPage({ params: { habit } }: { params: HabitPa
         Voltar
       </Link>
 
-      <Calender />
+      <Calender habit={formattedHabit} habitStreak={habitStreak} />
     </main>
   )
 }
