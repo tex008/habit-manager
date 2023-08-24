@@ -1,7 +1,9 @@
 import DayState from "@/components/DayState";
+import DeleteButton from "@/components/DeleteButton";
 import { kv } from "@vercel/kv";
 import Image from "next/image";
 import Link from "next/link";
+import { deleteHabit } from "./actions";
 
 type Habits = {
   [habit: string] : Record<string,boolean> ;
@@ -33,14 +35,7 @@ export default async function Home() {
           <div key={habit} className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
               <span className="text-xl font-light text-white font-sans">{habit}</span>
-              <button>
-                <Image
-                  src="/images/trash-icon.svg"
-                  alt="delete button icon"
-                  width={20}
-                  height={20}
-                />
-              </button>
+              <DeleteButton habit={habit}/>
             </div>
             <Link href={`habit/${habit}`}>
               <section className="grid grid-cols-7 bg-neutral-800 rounded-md p-2">
